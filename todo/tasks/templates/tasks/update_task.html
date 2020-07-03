@@ -1,5 +1,19 @@
-<form method="post" action="">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" name="Update Task">
-</form>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h1>Change Task</h1>
+    <form method="post" action="">
+        {% csrf_token %}
+        <div class="form-group">
+            <input class="form-control" type="text" name="title" value="{{update_form.initial.title}}" required autofocus>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" name="isComplete" class="form-check-input" id="isComp">
+            <label class="form-check-label" for="isComp">is complete</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Task</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,16 +1,38 @@
-<form method="post" action="/">
-    {% csrf_token %}
-    {{form.title}}
-    <input type="submit" name="Create Task"></input>
-</form>
-{% for task in all_tasks %}
-    <div>
-        <a href="{% url 'update_task' task.id %}">Update</a>
-        <a href="{% url 'delete_task' task.id %}">Delete</a>
-        {% if task.complete == True %}
-        <strike>{{ task.title }}</strike>
-        {% else %}
-        <span>{{ task.title }}</span>
-        {% endif %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <form method="post" action="/" class="form-inline">
+                <div class="input-group flex-fill">
+                    {% csrf_token %}
+                    <input class="form-control" type="text" name="title" placeholder="Input your task" required autofocus>
+                    <button type="submit" class="btn btn-primary ml-1">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
+    <div class="row m-1">
+        <h1>All Tasks</h1>
+    </div>
+{% for task in all_tasks %}
+        <div class="row bg-light m-1">
+            <div class="col-8">
+                {% if task.isComplete == True %}
+                <h3 class="text-success">{{ task.title }}</h3>
+                {% else %}
+                <h3 class="text-warning">{{ task.title }}</h3>
+                {% endif %}
+            </div>
+            <div class="col-4 d-flex justify-content-end">
+                <a class="btn btn-outline-info mr-1" href="{% url 'update_task' task.id %}">Update</a>
+                <a class="btn btn-outline-danger" href="{% url 'delete_task' task.id %}">Delete</a>
+            </div>
+        </div>
 {% endfor %}
+</div>
+{% endblock %}

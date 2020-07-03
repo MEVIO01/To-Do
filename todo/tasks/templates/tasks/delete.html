@@ -1,6 +1,19 @@
-<p>Are you sure that you want to delete "{{item}}"?</p>
-<a href="{% url 'all_tasks' %}">Cancel</a>
-<form action="" method="post">
-    {% csrf_token %}
-    <input type="submit" name="Confirm">
-</form>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container d-flex justify-content-center">
+    <div>
+        <h2>Are you sure that you want to delete "{{item}}"?</h2>
+        <div class="d-flex flex-row justify-content-center">
+            <div><a class="btn btn-primary mr-1" href="{% url 'all_tasks' %}">Cancel</a></div>
+            <div>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
